@@ -66,4 +66,19 @@ class JammitControllerTest < ActionController::TestCase
     Jammit.reload!
   end
 
+  def test_javascript_with_namespaces
+    assert_generates('/assets/com.namespace.code.js', {
+      :controller => 'jammit',
+      :action     => 'package',
+      :package    => 'com.namespace.code',
+      :extension  => 'js'
+    })
+    assert_recognizes({
+      :controller => 'jammit',
+      :action     => 'package',
+      :package    => 'com.namespace.code',
+      :extension  => 'js'
+    }, '/assets/com.namespace.code.js')
+  end
+
 end
